@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sms_maintained/sms.dart';
+import 'package:location/location.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -18,7 +19,9 @@ class _HomePageState extends State<HomePage> {
 
     String message = "This is a test message!";
     List<String> recipents = ["997966231", "954759224","943480929","922680724"];
-
+    
+    var currentLocation = LocationData;
+    var location = new Location();
     return Scaffold(
       appBar: AppBar(
         title: Text('Enviar sms'),
@@ -43,6 +46,15 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          location.onLocationChanged().listen((LocationData currentLocation) {
+            print(currentLocation.latitude);
+            print(currentLocation.longitude);
+          });
+        },
+        child: Icon(Icons.location_searching),
       ),
     );
   }
